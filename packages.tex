@@ -2,8 +2,26 @@
 \usepackage{beamerthemesplit}
 \usepackage[utf8]{inputenc}
 \usepackage[portuguese]{babel}
-\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{animate}
+
+\newsavebox{\picbox}
+
+\newcommand{\cutpic}[3]{
+  \savebox{\picbox}{\includegraphics[width=#2]{#3}}
+  \tikz\node [draw, rounded corners=#1, line width=4pt,
+    color=white, minimum width=\wd\picbox,
+    minimum height=\ht\picbox, path picture={
+        \node at (path picture bounding box.center) {
+          \usebox{\picbox}};
+      }] {};
+}
 
 % Beamer config
 \usetheme{Copenhagen}
 \usecolortheme{dolphin}
+\beamertemplatenavigationsymbolsempty
+
+\mode<presentation>{}
+
